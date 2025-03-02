@@ -1,7 +1,9 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect
 import sqlite3
 
 app = Flask(__name__)
+
+ADMIN_PASSWORD = "admin123"  # Change this to your desired password
 
 # Home Page
 @app.route("/")
@@ -20,44 +22,32 @@ def jobs():
     return render_template("jobs.html", jobs=jobs_list)
 
 # Admin Page - Add Jobs
-ADMIN_PASSWORD = "admin123"  # Change this to your actual password
-
 @app.route("/admin", methods=["GET", "POST"])
 def admin():
-    error = None  # Default value
-
     if request.method == "POST":
         password = request.form.get("password")
-        if password != ADMIN_PASSWORD:
-            error = "Incorrect Admin Password. Please try again."
+        job_title = request.form.get("job_title")
+        company = request.form.get("company")
+        location = request.form.get("location")
+
+        if password == ADMIN_PASSWORD:
+            conn = sqlite3.connect("jobs.db")
+            cursor = conn.cursor()
+            cursor.execute("INSERT INTO jobs (job_title, company, location) VALUES (?, ?, ?)", 
+                           (job_title, company, location))
+            conn.commit()
+            conn.close()
+
+            return "<h3>Job added successfully!</h3><a href='/jobs'>View Jobs</a>"
         else:
-            job_title = request.form.get("job_title")
-            company = request.form.get("company")
-            location = request.form.get("location")
+            return render_template("admin.html", error="Incorrect Password")
 
-            if job_title and company and location:
-                conn = sqlite3.connect("jobs.db")
-                cursor = conn.cursor()
-                cursor.execute("INSERT INTO jobs (job_title, company, location) VALUES (?, ?, ?)", 
-                               (job_title, company, location))
-                conn.commit()
-                conn.close()
+    return render_template("admin.html")
 
-                return redirect(url_for("jobs"))  # Redirect to jobs page after adding
-            else:
-                error = "All fields are required to add a job."
-
-    print("Error being passed to template:", error)  # Debugging
-    return render_template("admin.html", error=error)  # Always pass error
-# Ensure error is passed
-
-
-  
-
-# Contact Page
-@app.route("/contact")
+@app.route('/contact')
 def contact():
-    return render_template("contact.html")
+    return render_template('contact.html')
+
 
 if __name__ == "__main__":
     app.run(debug=True)
