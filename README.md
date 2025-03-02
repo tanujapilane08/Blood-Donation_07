@@ -1,17 +1,23 @@
 # [Team Id] [Team Name]
+HM006
+Galaxy
 
 ## [Problem statement Title]
+Students face difficulties in finding suitable job opportunities and managing their applications efficiently. A **Student Job Portal** with personalized dashboards helps streamline this process by allowing students to create profiles, upload resumes, and receive job notifications. Admins can post job opportunities with relevant keywords for better searchability. The platform aims to simplify job discovery and application management for students.
 
 ## Description
-Brief description of your project.
+Students often struggle to find suitable job opportunities and efficiently manage their applications. A dedicated Student Job Portal addresses this issue by providing a personalized dashboard for both students and admins, streamlining the job search and application process.
 
 ## Features
-- Feature 1
-- Feature 2
-- ...
+1.Home Page showing direct latest job opporunities
+2.job panel shows available job data
+3.Admin panel to add job data
+4.Contact Panel to add contact info
+5.student able to add their information to page from Home page itself.
 
 ## Tech Stack
-- List of technologies used in your project.
+Frontend-Html,Css.
+Backend-Python Flask,Sql.
 
 ## Screenshots
 
@@ -36,8 +42,8 @@ Brief description of your project.
 yed Solution](gfgpccoe.in)
 
 ## Video Url
-[Link to Demo Video](video_url)
+[Link to Demo Video](https://youtu.be/iyr0oMycyio?si=8S-ZccpRuv4GUbpf)
 
 ## Remarks
-- Any additional things you want to share
+We can improve this website by making chatbot and using other AI Tools .
 
