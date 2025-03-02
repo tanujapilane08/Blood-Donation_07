@@ -1,19 +1,16 @@
 import sqlite3
 
-conn = sqlite3.connect("jobs.db")  # Create database
+conn = sqlite3.connect("jobs.db")
 cursor = conn.cursor()
 
-# Create table for jobs
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS jobs (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    job_title TEXT,
-    company TEXT,
-    location TEXT
+    job_title TEXT NOT NULL,
+    company TEXT NOT NULL,
+    location TEXT NOT NULL
 )
 """)
 
 conn.commit()
 conn.close()
-
-print("Database initialized successfully.")
