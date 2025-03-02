@@ -1,8 +1,8 @@
 {
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/" },
-    { "source": "/jobs", "destination": "/jobs.html" },
-    { "source": "/admin", "destination": "/admin.html" },
-    { "source": "/contact", "destination": "/contact.html" }
+  "routes": [
+    { "src": "/jobs", "dest": "/jobs.html" },
+    { "src": "/admin", "dest": "/admin.html" },
+    { "src": "/contact", "dest": "/contact.html" }
   ]
 }
+
