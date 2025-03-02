@@ -36,17 +36,20 @@ def admin():
             company = request.form.get("company")
             location = request.form.get("location")
 
-            # Insert job details into the database
-            conn = sqlite3.connect("jobs.db")
-            cursor = conn.cursor()
-            cursor.execute("INSERT INTO jobs (job_title, company, location) VALUES (?, ?, ?)", 
-                           (job_title, company, location))
-            conn.commit()
-            conn.close()
+            if job_title and company and location:  # Check if fields are not empty
+                # Insert job details into the database
+                conn = sqlite3.connect("jobs.db")
+                cursor = conn.cursor()
+                cursor.execute("INSERT INTO jobs (job_title, company, location) VALUES (?, ?, ?)", 
+                               (job_title, company, location))
+                conn.commit()
+                conn.close()
 
-            return redirect(url_for("jobs"))  # Redirect to jobs page after adding
+                return redirect(url_for("jobs"))  # Redirect to jobs page after adding
+            else:
+                error = "All fields are required to add a job."
 
-    return render_template("admin.html", error=error)
+    return render_template("admin.html", error=error) 
 
 # Contact Page
 @app.route("/contact")
