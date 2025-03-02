@@ -1,9 +1,7 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, url_for
 import sqlite3
 
 app = Flask(__name__)
-
-
 
 # Home Page
 @app.route("/")
@@ -22,7 +20,6 @@ def jobs():
     return render_template("jobs.html", jobs=jobs_list)
 
 # Admin Page - Add Jobs
-
 ADMIN_PASSWORD = "admin123"  # Change this to your actual password
 
 @app.route("/admin", methods=["GET", "POST"])
@@ -33,13 +30,28 @@ def admin():
         password = request.form.get("password")
         if password != ADMIN_PASSWORD:
             error = "Incorrect Admin Password. Please try again."
+        else:
+            # Get job details from the form
+            job_title = request.form.get("job_title")
+            company = request.form.get("company")
+            location = request.form.get("location")
+
+            # Insert job details into the database
+            conn = sqlite3.connect("jobs.db")
+            cursor = conn.cursor()
+            cursor.execute("INSERT INTO jobs (job_title, company, location) VALUES (?, ?, ?)", 
+                           (job_title, company, location))
+            conn.commit()
+            conn.close()
+
+            return redirect(url_for("jobs"))  # Redirect to jobs page after adding
 
     return render_template("admin.html", error=error)
 
-@app.route('/contact')
+# Contact Page
+@app.route("/contact")
 def contact():
-    return render_template('contact.html')
-
+    return render_template("contact.html")
 
 if __name__ == "__main__":
     app.run(debug=True)
