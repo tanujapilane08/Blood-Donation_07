@@ -3,7 +3,7 @@ import sqlite3
 
 app = Flask(__name__)
 
-ADMIN_PASSWORD = "admin123"  # Change this to your desired password
+
 
 # Home Page
 @app.route("/")
@@ -22,27 +22,19 @@ def jobs():
     return render_template("jobs.html", jobs=jobs_list)
 
 # Admin Page - Add Jobs
+
+ADMIN_PASSWORD = "admin123"  # Change this to your actual password
+
 @app.route("/admin", methods=["GET", "POST"])
 def admin():
+    error = None  # Default: No error
+
     if request.method == "POST":
         password = request.form.get("password")
-        job_title = request.form.get("job_title")
-        company = request.form.get("company")
-        location = request.form.get("location")
+        if password != ADMIN_PASSWORD:
+            error = "Incorrect Admin Password. Please try again."
 
-        if password == ADMIN_PASSWORD:
-            conn = sqlite3.connect("jobs.db")
-            cursor = conn.cursor()
-            cursor.execute("INSERT INTO jobs (job_title, company, location) VALUES (?, ?, ?)", 
-                           (job_title, company, location))
-            conn.commit()
-            conn.close()
-
-            return "<h3>Job added successfully!</h3><a href='/jobs'>View Jobs</a>"
-        else:
-            return render_template("admin.html", error="Incorrect Password")
-
-    return render_template("admin.html")
+    return render_template("admin.html", error=error)
 
 @app.route('/contact')
 def contact():
