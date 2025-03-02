@@ -1,13 +1,8 @@
-
-
-  {
+{
   "rewrites": [
-     {"source":"/(.*)","destination":"/"}
+    { "source": "/(.*)", "destination": "/" },
     { "source": "/jobs", "destination": "/jobs.html" },
     { "source": "/admin", "destination": "/admin.html" },
     { "source": "/contact", "destination": "/contact.html" }
   ]
 }
-
-
- 
