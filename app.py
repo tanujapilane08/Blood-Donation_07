@@ -24,7 +24,7 @@ ADMIN_PASSWORD = "admin123"  # Change this to your actual password
 
 @app.route("/admin", methods=["GET", "POST"])
 def admin():
-    error = None  # Default error value
+    error = None  # Default value
 
     if request.method == "POST":
         password = request.form.get("password")
@@ -43,12 +43,13 @@ def admin():
                 conn.commit()
                 conn.close()
 
-                return redirect(url_for("jobs"))
+                return redirect(url_for("jobs"))  # Redirect to jobs page after adding
             else:
                 error = "All fields are required to add a job."
-            print(error) 
 
-    return render_template("admin.html", error=error)  # Ensure error is passed
+    print("Error being passed to template:", error)  # Debugging
+    return render_template("admin.html", error=error)  # Always pass error
+# Ensure error is passed
 
 
   
