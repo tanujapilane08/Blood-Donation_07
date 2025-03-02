@@ -1,8 +1,7 @@
-# [Team Id] [Team Name]
-HM006
-Galaxy
+# [HM006] [Galaxy]
 
-## [Problem statement Title]
+
+## Problem statement Title
 Students face difficulties in finding suitable job opportunities and managing their applications efficiently. A **Student Job Portal** with personalized dashboards helps streamline this process by allowing students to create profiles, upload resumes, and receive job notifications. Admins can post job opportunities with relevant keywords for better searchability. The platform aims to simplify job discovery and application management for students.
 
 ## Description
