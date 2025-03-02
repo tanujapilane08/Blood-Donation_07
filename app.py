@@ -24,20 +24,18 @@ ADMIN_PASSWORD = "admin123"  # Change this to your actual password
 
 @app.route("/admin", methods=["GET", "POST"])
 def admin():
-    error = None  # Default: No error
+    error = None  # Default error value
 
     if request.method == "POST":
         password = request.form.get("password")
         if password != ADMIN_PASSWORD:
             error = "Incorrect Admin Password. Please try again."
         else:
-            # Get job details from the form
             job_title = request.form.get("job_title")
             company = request.form.get("company")
             location = request.form.get("location")
 
-            if job_title and company and location:  # Check if fields are not empty
-                # Insert job details into the database
+            if job_title and company and location:
                 conn = sqlite3.connect("jobs.db")
                 cursor = conn.cursor()
                 cursor.execute("INSERT INTO jobs (job_title, company, location) VALUES (?, ?, ?)", 
@@ -45,11 +43,15 @@ def admin():
                 conn.commit()
                 conn.close()
 
-                return redirect(url_for("jobs"))  # Redirect to jobs page after adding
+                return redirect(url_for("jobs"))
             else:
                 error = "All fields are required to add a job."
+            print(error) 
 
-    return render_template("admin.html", error=error) 
+    return render_template("admin.html", error=error)  # Ensure error is passed
+
+
+  
 
 # Contact Page
 @app.route("/contact")
