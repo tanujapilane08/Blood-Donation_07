@@ -10,11 +10,9 @@
 
     <div class="container mt-5">
         <h2 class="text-center">Admin - Add Job</h2>
-
-        {% if error is not none and error != "" %}
+        {% if error %}
         <div class="alert alert-danger">{{ error }}</div>
         {% endif %}
-
         <form method="POST">
             <div class="mb-3">
                 <label for="password" class="form-label">Admin Password</label>
@@ -35,6 +33,8 @@
             <button type="submit" class="btn btn-primary">Add Job</button>
         </form>
     </div>
+
+
 
     <div class="container mt-3">
     <a href="index.html" class="btn btn-primary">Home</a>
